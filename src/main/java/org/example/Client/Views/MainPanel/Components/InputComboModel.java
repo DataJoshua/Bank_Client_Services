@@ -15,7 +15,7 @@ abstract public class InputComboModel extends JPanel {
 
         field1 = new JTextField();
         field2 = new JTextField();
-
+        // We set a button using a Abstract action to handle the events
         button = new JButton(actionToSubscribe);
         this.setVisible(true);
         setLayout(new GridLayout(3,0));
@@ -26,6 +26,7 @@ abstract public class InputComboModel extends JPanel {
 
     }
 
+    // This function creates a box with a label and a field
     public Box  getBox(String label, JTextField field){
         Box box = new Box(2);
         box.add(new JLabel(label));

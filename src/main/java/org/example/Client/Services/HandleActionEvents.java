@@ -45,7 +45,5 @@ public class HandleActionEvents extends AbstractAction {
             jTabbedPane.remove(MainPanel.loginPanel);
             JOptionPane.showMessageDialog(null, "Wellcome !" + user);
         }
-
-        //jTabbedPane.remove(MainPanel.loginPanel);
     }
 }
