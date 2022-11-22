@@ -5,15 +5,16 @@ import java.sql.*;
 public class CreateDataBase implements  Runnable {
     @Override
     public void run() {
-        String url = "jdbc:postgresql://localhost:5432/java";
+        // This thread just create a new table with the especifications for the User model
+        String url = "jdbc:postgresql://localhost:5432/semester";
         try {
             Connection conn = DriverManager.getConnection(url, "postgres","root");
             Statement statement = conn.createStatement();
-            String sql = "CREATE TABLE users" +
+            String sql = "CREATE TABLE IF NOT EXISTS users" +
                     "(" +
-                    "user_id int NOT NULL UNIQUE," +
+                    "user_id serial NOT NULL UNIQUE," +
                     "name varchar(250) NOT NULL," +
-                    "password varchar(250) NOT NULL UNIQUE," +
+                    "password_digest varchar(250) NOT NULL UNIQUE," +
                     "CONSTRAINT user_id_pk PRIMARY KEY(user_id)" +
                     ")";
             int rows = statement.executeUpdate(sql);

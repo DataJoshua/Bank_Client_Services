@@ -1,7 +1,6 @@
-package org.example.Client.Views.MainPanel.Components;
+package org.example.Client.Views.ClientPanel.Components;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class RegisterPanel extends InputComboModel {
 

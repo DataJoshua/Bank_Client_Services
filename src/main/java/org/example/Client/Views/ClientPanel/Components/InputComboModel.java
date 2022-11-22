@@ -1,9 +1,7 @@
-package org.example.Client.Views.MainPanel.Components;
+package org.example.Client.Views.ClientPanel.Components;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Array;
-import java.util.ArrayList;
 
 
 // This class creates a pair of labels, inputs and a button to use
@@ -27,14 +25,14 @@ abstract public class InputComboModel extends JPanel {
     }
 
     // This function creates a box with a label and a field
-    public Box  getBox(String label, JTextField field){
+    private Box getBox(String label, JTextField field){
         Box box = new Box(2);
         box.add(new JLabel(label));
         box.add(field);
         return box;
     }
 
-    // returns the fields; to be used in the HandleActionEvents and get the values that the user insert
+    // returns the fields, to be used in the HandleActionEvents and get the values that the user insert
     public JTextField[] getFields(){
         JTextField [] inputsArray = {this.field1, this.field2};
         return inputsArray;

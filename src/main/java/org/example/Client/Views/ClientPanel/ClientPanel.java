@@ -1,17 +1,17 @@
-package org.example.Client.Views.MainPanel;
+package org.example.Client.Views.ClientPanel;
 
 import org.example.Client.Services.HandleActionEvents;
-import org.example.Client.Views.MainPanel.Components.LoginPanel;
-import org.example.Client.Views.MainPanel.Components.RegisterPanel;
+import org.example.Client.Views.ClientPanel.Components.LoginPanel;
+import org.example.Client.Views.ClientPanel.Components.RegisterPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainPanel extends JFrame {
+public class ClientPanel extends JFrame {
     public static RegisterPanel registerPanel;
     public static LoginPanel loginPanel;
     JTabbedPane jTabbedPane;
-    public MainPanel(){
+    public ClientPanel(){
 
         createWindow();
 

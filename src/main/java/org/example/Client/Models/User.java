@@ -16,13 +16,17 @@ public class User {
         this.conn = DriverManager.getConnection(URL, USER, PASSWORD);
         this.id = id;
     }
-    public void save() throws SQLException {
 
+    public void save() throws SQLException {
+        // this method take all the atributes of the User model and set them in the table users
         String sql = "INSERT INTO users (user_id, name, password) VALUES (?, ?, ?)";
         PreparedStatement stm = conn.prepareStatement(sql);
+
+        //add all the user info in the sql query
         stm.setInt(1, this.id);
         stm.setString(2,this.name);
         stm.setString(3, this.password);
+
         int rows = stm.executeUpdate();
         if(rows ==  1){
             System.out.println("user created!");
