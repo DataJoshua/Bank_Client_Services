@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Client.Migration.CreateDataBase;
+import org.example.Client.Models.Account;
 import org.example.Client.Views.ClientPanel.ClientPanel;
 
 import java.sql.SQLException;

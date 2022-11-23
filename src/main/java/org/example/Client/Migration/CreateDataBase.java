@@ -16,7 +16,13 @@ public class CreateDataBase implements  Runnable {
                     "name varchar(250) NOT NULL," +
                     "password_digest varchar(250) NOT NULL UNIQUE," +
                     "CONSTRAINT user_id_pk PRIMARY KEY(user_id)" +
-                    ")";
+                    ");" +
+                    "CREATE TABLE IF NOT EXISTS accounts(" +
+                    "account_id serial NOT NULL," +
+                    "name varchar(255) NOT NULL," +
+                    "amount int DEFAULT 0," +
+                    "user_id bigint references users(user_id)" +
+                    ");";
             int rows = statement.executeUpdate(sql);
 
             if(rows == 0){
