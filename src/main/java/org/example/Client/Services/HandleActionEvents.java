@@ -1,6 +1,7 @@
 package org.example.Client.Services;
 
 import org.example.Client.Models.Account;
+import org.example.Client.Views.AccountPanel.AccountPanel;
 import org.example.Client.Views.ClientPanel.ClientPanel;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -49,18 +50,33 @@ public class HandleActionEvents extends AbstractAction {
                     // get the id from the result set of user and set it as current_user
                     int id = resultSet.getInt("user_id");
 
+                    JOptionPane.showMessageDialog(null, "You logged in!");
+
                     System.out.println("you logged in!!");
-                    System.out.println(id);
+
+                    // CREATE SESSION
+
+                    Session session = new Session(id);
+
 
                     // we eliminate the login tab IFF the name and password was correct
                     jTabbedPane.removeAll();
-                    createAccountTabbedPane(id);
+                    ArrayList<Account> acountArray =  createAccountArray(session.getCurrent_user_id());
+
+                    // create a new Acount component and add it to the JTabbedPane
+
+                    AccountPanel accountPanel =  new AccountPanel(acountArray);
+
+                    jTabbedPane.addTab("account", accountPanel);
+
                 }
                 else{
+                    JOptionPane.showMessageDialog(null, "the password is wrong!");
                     System.out.println("your password is bad");
                 }
             }
             else{
+                JOptionPane.showMessageDialog(null,"The username is bad");
                 System.out.println("your username is bad");
             }
 
@@ -69,10 +85,10 @@ public class HandleActionEvents extends AbstractAction {
         }
     }
 
-    private void createAccountTabbedPane(int current_user_id) throws SQLException {
+    private ArrayList<Account> createAccountArray(int current_user_id) throws SQLException {
         // here we create and add to the MainTabbedPane a new tab called account that just can be seen if the user is logged
         Statement stm = conn.createStatement();
-        ResultSet resultSet = stm.executeQuery("SELECT * FROM accounts WHERE id = " + current_user_id);
+        ResultSet resultSet = stm.executeQuery("SELECT * FROM accounts WHERE user_id = " + current_user_id);
         ArrayList<Account> acountsArray = new ArrayList<>();
 
         // create a object of Account to each row of the query and then make an array of all of them
@@ -86,6 +102,7 @@ public class HandleActionEvents extends AbstractAction {
             acountsArray.add(account);
         }
 
+        return acountsArray;
     }
 
     private void insertUserToDatabase(){

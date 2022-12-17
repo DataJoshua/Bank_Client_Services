@@ -17,6 +17,12 @@ public class User {
         this.id = id;
     }
 
+    public User(int id, String name){
+        this.id = id;
+        this.name = name;
+        this.password = "null";
+    }
+
     public void save() throws SQLException {
         // this method take all the atributes of the User model and set them in the table users
         String sql = "INSERT INTO users (user_id, name, password) VALUES (?, ?, ?)";
