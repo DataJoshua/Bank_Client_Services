@@ -61,11 +61,11 @@ public class HandleActionEvents extends AbstractAction {
 
                     // we eliminate the login tab IFF the name and password was correct
                     jTabbedPane.removeAll();
-                    ArrayList<Account> acountArray =  createAccountArray(session.getCurrent_user_id());
+                    //ArrayList<Account> acountArray =  createAccountArray(session.getCurrent_user_id());
 
                     // create a new Acount component and add it to the JTabbedPane
 
-                    AccountPanel accountPanel =  new AccountPanel(acountArray);
+                    AccountPanel accountPanel =  new AccountPanel(session.getCurrent_user_id());
 
                     jTabbedPane.addTab("account", accountPanel);
 
@@ -83,26 +83,6 @@ public class HandleActionEvents extends AbstractAction {
         }catch (SQLException e){
             System.out.println(e);
         }
-    }
-
-    private ArrayList<Account> createAccountArray(int current_user_id) throws SQLException {
-        // here we create and add to the MainTabbedPane a new tab called account that just can be seen if the user is logged
-        Statement stm = conn.createStatement();
-        ResultSet resultSet = stm.executeQuery("SELECT * FROM accounts WHERE user_id = " + current_user_id);
-        ArrayList<Account> acountsArray = new ArrayList<>();
-
-        // create a object of Account to each row of the query and then make an array of all of them
-        while(resultSet.next()){
-            Integer account_id = resultSet.getInt("account_id");
-            String name = resultSet.getString("name");
-            Integer amount = resultSet.getInt("amount");
-            Integer user_id = resultSet.getInt("user_id");
-
-            Account account = new Account(account_id, name, amount, user_id);
-            acountsArray.add(account);
-        }
-
-        return acountsArray;
     }
 
     private void insertUserToDatabase(){
