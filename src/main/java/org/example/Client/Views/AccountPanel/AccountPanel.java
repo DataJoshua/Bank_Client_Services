@@ -4,6 +4,7 @@ import org.example.Client.Models.Account;
 import org.example.Client.Services.ConnectToDb;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.*;
@@ -14,11 +15,12 @@ import java.util.Vector;
 
 public class AccountPanel extends JPanel{
 
-    private Connection conn;
+    private final Connection conn;
     private ArrayList<Account> accountsList;
-    private int currentUser;
+    private final int currentUser;
     private JTable table;
     private CreateAccount createAccountPanel;
+    private DefaultTableModel model;
 
     public AccountPanel(int currentUser) throws SQLException {
 
@@ -58,29 +60,24 @@ public class AccountPanel extends JPanel{
     }
     private void createTable(){
 
-        Vector<Vector<String>> data = new Vector<>();
-        Vector<String> headers = new Vector<>();
-        headers.add("Account ID");
-        headers.add("Name");
-        headers.add("Amount");
+        model = new DefaultTableModel();
+        model.addColumn("Account ID:");
+        model.addColumn("Name:");
+        model.addColumn("Amount:");
 
         for(Account a: this.accountsList){
             Vector<String> row = new Vector<>();
             row.add(a.getId()+"");
             row.add(a.getName());
             row.add(a.getAmount()+"");
-            data.add(row);
+            model.addRow(row);
         }
 
-        this.table = new JTable(data, headers);
+
+        this.table = new JTable(model);
         table.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(this.table);
         this.add(scrollPane, BorderLayout.CENTER);
-    }
-
-    public void setAccountsList(ArrayList<Account> accountsList){
-        this.accountsList = accountsList;
-        createTable();
     }
 
     class AccountPanelActions extends AbstractAction{
@@ -96,10 +93,10 @@ public class AccountPanel extends JPanel{
             // fetching all the accounts including the new one
 
             try {
-               if(createAccount()){
+               Vector<String> ac = createAccount();
 
-                   remove(table);
-                   setAccountsList(createAccountArray(currentUser));
+               if(ac != null){
+                   model.addRow(ac);
                    revalidate();
                    repaint();
                }
@@ -109,7 +106,7 @@ public class AccountPanel extends JPanel{
             }
         }
 
-        public boolean createAccount() throws SQLException {
+        public Vector<String> createAccount() throws SQLException {
             // create new account
             JTextField [] fields =  createAccountPanel.getFields();
 
@@ -133,15 +130,17 @@ public class AccountPanel extends JPanel{
 
             int row = pst.executeUpdate();
 
-            boolean res = false;
+            Vector<String> account = new Vector<>();
+            account.add(id+"");
+            account.add(name);
+            account.add(amount+"");
 
             if(row > 0){
-                res = true;
                 System.out.println("Account created succesfully");
+                return account;
             }
 
-            return res;
+            return null;
         }
     }
-
 }
