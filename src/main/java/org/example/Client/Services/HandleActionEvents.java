@@ -2,6 +2,7 @@ package org.example.Client.Services;
 
 import org.example.Client.Models.Account;
 import org.example.Client.Views.AccountPanel.AccountPanel;
+import org.example.Client.Views.AccountPanel.MakeTransactionPanel;
 import org.example.Client.Views.ClientPanel.ClientPanel;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -66,8 +67,11 @@ public class HandleActionEvents extends AbstractAction {
                     // create a new Acount component and add it to the JTabbedPane
 
                     AccountPanel accountPanel =  new AccountPanel(session.getCurrent_user_id());
+                    MakeTransactionPanel makeTransactionPanel = new MakeTransactionPanel();
 
+                    // Here we add all the user interface when a user is logged
                     jTabbedPane.addTab("account", accountPanel);
+                    jTabbedPane.addTab("Send Money", makeTransactionPanel);
 
                 }
                 else{

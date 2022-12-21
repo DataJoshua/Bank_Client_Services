@@ -43,7 +43,7 @@ public class AccountPanel extends JPanel{
     private ArrayList<Account> createAccountArray(int current_user_id) throws SQLException {
         // here we create and add to the MainTabbedPane a new tab called account that just can be seen if the user is logged
         Statement stm = conn.createStatement();
-        ResultSet resultSet = stm.executeQuery("SELECT * FROM accounts WHERE user_id = " + current_user_id);
+        ResultSet resultSet = stm.executeQuery("SELECT * FROM accounts WHERE user_id = " + current_user_id + " ORDER BY account_id");
         ArrayList<Account> accountsArray = new ArrayList<>();
 
         // create a object of Account to each row of the query and then make an array of all of them

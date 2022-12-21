@@ -7,8 +7,8 @@ import java.awt.*;
 // This class creates a pair of labels, inputs and a button to use
 
 abstract public class InputComboModel extends JPanel {
-    private JTextField field1, field2;
-    private JButton button;
+    protected JTextField field1, field2;
+    protected JButton button;
     public InputComboModel(String input1Name, String input2Name, AbstractAction actionToSubscribe) {
 
         field1 = new JTextField();
@@ -25,7 +25,7 @@ abstract public class InputComboModel extends JPanel {
     }
 
     // This function creates a box with a label and a field
-    private Box getBox(String label, JTextField field){
+    protected Box getBox(String label, JTextField field){
         Box box = new Box(2);
         box.add(new JLabel(label));
         box.add(field);
